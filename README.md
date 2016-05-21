@@ -1,5 +1,9 @@
 # Stock Watch
 
+TODO:
+1. Write this markdown correctly.
+2. 
+
 Commands:
 01. Create a repository on GitHub.
 02. Create a folder on your workstation.

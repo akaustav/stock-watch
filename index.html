@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stock Watch</title>
+
+    <!-- Latest compiled and minified Twitter Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <main class="container">
+
+      <header class="text-center">
+        <h1 class="text-success">
+          <i class="glyphicon glyphicon-stats"></i>
+          <p>Stock Watch</p>
+        </h1>
+        <p>Watch your Favorite Stocks</p>
+      </header>
+
+      <section>
+        <form name="stock-form" class="row">
+          <div class="col-sm-8">
+            <input type="text" name="stock-symbol" class="form-control"
+                   placeholder="e.g. TSLA" />
+          </div>
+          <div class="col-sm-4">
+            <button class="btn btn-success btn-block">
+              Lookup Stock
+            </button>
+          </div>
+        </form>
+
+        <article class="row">
+          <div class="text-success">
+            <h1 class="col-sm-6">TSLA</h1>
+            <h1 class="col-sm-6 text-right">$233</h1>
+          </div>
+          <div>
+            <div class="col-sm-6">Tesla Motors, Inc</div>
+            <div class="col-sm-6 text-right text-danger">6.36</div>
+          </div>
+          <div>
+            <div class="col-sm-6">last traded: 03-18-16</div>
+            <div class="col-sm-6 text-right">
+              <span>watch list:</span>
+              <i class="glyphicon glyphicon-star-empty"></i>
+            </div>
+          </div>
+        </article>
+
+        <!-- Graph -->
+      </section>
+    </main>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
