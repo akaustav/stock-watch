@@ -21,7 +21,7 @@
 
   </head>
   <body>
-    <main class="container">
+    <main id="main" class="container">
 
       <header class="text-center">
         <h1 class="text-success">
@@ -34,27 +34,30 @@
       <section>
         <form name="stock-form" class="row">
           <div class="col-sm-8">
-            <input type="text" name="stock-symbol" class="form-control"
-                   placeholder="e.g. TSLA" />
+            <input type="text" id="stock-symbol-input" name="stock-symbol-input"
+                   class="form-control" placeholder="e.g. TSLA" />
           </div>
           <div class="col-sm-4">
-            <button class="btn btn-success btn-block">
+            <button id="stock-lookup" class="btn btn-success btn-block">
               Lookup Stock
             </button>
           </div>
         </form>
 
-        <article class="row">
+        <article id="stock-details" class="row hidden">
           <div class="text-success">
-            <h1 class="col-sm-6">TSLA</h1>
-            <h1 class="col-sm-6 text-right">$233</h1>
+            <h1 id="stock-symbol" class="col-sm-6">TSLA</h1>
+            <h1 id="stock-value" class="col-sm-6 text-right">$233</h1>
           </div>
           <div>
-            <div class="col-sm-6">Tesla Motors, Inc</div>
-            <div class="col-sm-6 text-right text-danger">6.36</div>
+            <div id="stock-name" class="col-sm-6">Tesla Motors, Inc</div>
+            <div id="stock-number" class="col-sm-6 text-right text-danger">6.36</div>
           </div>
           <div>
-            <div class="col-sm-6">last traded: 03-18-16</div>
+            <div id="stock-number" class="col-sm-6">
+              <span>last traded:</span>
+              <span id="stock-last-traded">03-18-16</span>
+            </div>
             <div class="col-sm-6 text-right">
               <span>watch list:</span>
               <i class="fa fa-star-o"></i>
@@ -71,5 +74,9 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Application specific JavaScript -->
+    <!--script src="js/app-js-only.js"></script-->
+    <script src="js/app.js"></script>
   </body>
 </html>
