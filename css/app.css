@@ -2,6 +2,14 @@ header {
   margin-bottom: 3em;
 }
 
-form[name="stock-form"] {
+main.container {
+  border: 2px solid #999;
+  margin-top: 4em;
+  margin-bottom: 4em;
+  padding: 0 5em 5em;
+}
+
+form[name="stock-form"],
+article#stock-details {
   margin-bottom: 1.75em;
 }

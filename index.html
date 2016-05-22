@@ -46,34 +46,44 @@
 
         <article id="stock-details" class="row hidden">
           <div class="text-success">
-            <h1 id="stock-symbol" class="col-sm-6">TSLA</h1>
-            <h1 id="stock-value" class="col-sm-6 text-right">$233</h1>
+            <h1 id="stock-symbol" class="col-xs-6">TSLA</h1>
+            <h1 class="col-xs-6 text-right">
+              <span id="stock-currency">$</span>
+              <span id="stock-last-traded-price">233</span>
+            </h1>
           </div>
           <div>
-            <div id="stock-name" class="col-sm-6">Tesla Motors, Inc</div>
-            <div id="stock-change" class="col-sm-6 text-right text-danger">6.36</div>
-          </div>
-          <div>
-            <div class="col-sm-6">
-              <span>last traded:</span>
-              <span id="stock-last-traded">03-18-16</span>
+            <div id="stock-name" class="col-xs-6">Tesla Motors, Inc</div>
+            <div id="stock-change" class="col-xs-6 text-right text-danger">
+              <i class="fa fa-arrow-up"></i>
+              <span id="stock-change-value">6.36</span>
             </div>
-            <div class="col-sm-6 text-right">
+          </div>
+          <div>
+            <div class="col-xs-6">
+              <span>last traded:</span>
+              <span id="stock-last-traded-date">03-18-16</span>
+            </div>
+            <div class="col-xs-6 text-right">
               <span>watch list:</span>
               <i class="fa fa-star-o"></i>
             </div>
           </div>
         </article>
 
-        <!-- Graph -->
+        <!-- Chart -->
+        <canvas id="stock-chart" class="hidden" width="400" height="400"></canvas>
       </section>
     </main>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- JavaScript for creating charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
 
     <!-- Application specific JavaScript -->
     <!--script src="js/app-js-only.js"></script-->
