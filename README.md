@@ -4,7 +4,6 @@ TODO and Issues:
 
 1. Can't handle unknown stocks.
 1. Accepts blank string as symbol.
-1. Query Loading indicator is missing.
 1. 
 
 Commands:
@@ -22,3 +21,4 @@ Features:
 
 1. Stock Change Indicator Arrows
 1. Dynamic Graph - clicking on the legend toggles the corresponding line graph
+1. API call loading indicator
