@@ -4,7 +4,6 @@ TODO and Issues:
 
 1. Can't handle unknown stocks.
 1. Accepts blank string as symbol.
-1. 
 
 Commands:
 
