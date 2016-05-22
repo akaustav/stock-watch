@@ -1,5 +1,7 @@
 $(function() {
 
+  var stockChart = setupChart();
+
   // Lookup Stock button click handler
   $('button#stock-lookup').on('click', fetchStockDetails);
 
@@ -32,7 +34,6 @@ $(function() {
     .done(function(response) {
       // Select DOM containers into variables
       var stockDetailContainer = $('#stock-details');
-      var stockChartContainer = $('#stock-chart');
 
       // Select DOM elements into variables
       var stockSymbolElement = $('#stock-symbol');
@@ -40,6 +41,7 @@ $(function() {
       var stockLastTradePriceElement = $('#stock-last-traded-price');
       var stockNameElement = $('#stock-name');
       var stockChangeElement = $('#stock-change');
+      var stockChangeIndicatorElement = stockChangeElement.find('i');
       var stockChangeValueElement = $('#stock-change-value');
       var stockLastTradedDateElement = $('#stock-last-traded-date');
 
@@ -47,11 +49,16 @@ $(function() {
       var quote = response.query.results.quote;
       var stockSymbol = quote.Symbol;
       var stockCurrency = quote.Currency;
-      var stockLastTradePrice = quote.LastTradePriceOnly;
+      var stockLastTradePrice = Number.parseFloat(quote.LastTradePriceOnly);
       var stockName = quote.Name;
       var stockChange = Number.parseFloat(quote.Change);
       var stockChangePositive = (stockChange >= 0);
+      var stockChangeAbs = Math.abs(stockChange);
       var stockLastTradedDate = quote.LastTradeDate;
+      var stockDaysLow = Number.parseFloat(quote.DaysLow);
+      var stockDaysHigh = Number.parseFloat(quote.DaysHigh);
+      var stockYearLow = Number.parseFloat(quote.YearLow);
+      var stockYearHigh = Number.parseFloat(quote.YearHigh);
 
       // Modify DOM elements according to corresponding data received from the API call
       stockSymbolElement.text(stockSymbol);
@@ -59,76 +66,27 @@ $(function() {
       stockLastTradePriceElement.text(stockLastTradePrice);
       stockNameElement.text(stockName);
 
-      stockChangeElement.removeClass('text-danger text-success')
+      stockChangeElement.removeClass('text-danger text-success');
+      stockChangeIndicatorElement.removeClass('fa-arrow-up fa-arrow-down');
+
       if (stockChangePositive) {
         stockChangeElement.addClass('text-success');
+        stockChangeIndicatorElement.addClass('fa-arrow-up');
       } else {
         stockChangeElement.addClass('text-danger');
+        stockChangeIndicatorElement.addClass('fa-arrow-down');
       }
 
-      stockChangeValueElement.text(stockChange);
-
-
+      stockChangeValueElement.text(stockChangeAbs);
       stockLastTradedDateElement.text(stockLastTradedDate);
 
-      // Chart Settings
-      var chartSettings = {
-        fill: true,
-        lineTension: 0.5,
-        borderCapStyle: 'round',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderWidth: 1,
-        pointHoverRadius: 6,
-        pointHoverBorderWidth: 2,
-        pointRadius: 5,
-        pointHitRadius: 10
-      };
+      var dayValues = [stockDaysLow, stockLastTradePrice, stockDaysHigh];
+      var yearValues = [stockYearLow, stockLastTradePrice, stockYearHigh];
 
-      var chart1 = {};
-      chart1.color      = 'rgba(161,186,203,1)';
-      chart1.colorLight = 'rgba(161,186,203,0.4)';
-      chart1.colorHover = 'rgba(220,220,220,1)';
-
-      var chart2 = {};
-      chart2.color      = 'rgba(219,219,219,1)';
-      chart2.colorLight = 'rgba(219,219,219,0.4)';
-      chart2.colorHover = '#fff';
-
-      // Draw the Chart
-      var stockChart = new Chart(stockChartContainer, {
-        type: 'line',
-        data: {
-          labels: ['Low', 'Last Traded', 'High'],
-          datasets: [
-            $.extend({}, chartSettings, {
-              label:                     'Days Range',
-              backgroundColor:           chart1.colorLight,
-              borderColor:               chart1.color,
-              pointBorderColor:          chart1.color,
-              pointBackgroundColor:      chart1.color,
-              pointHoverBackgroundColor: chart1.color,
-              pointHoverBorderColor:     chart1.colorHover,
-              data:                      [216.35, 220.28, 220.55]
-            }),
-            $.extend({}, chartSettings, {
-              label:                     'Days Range 2',
-              backgroundColor:           chart2.colorLight,
-              borderColor:               chart2.color,
-              pointBorderColor:          chart2.color,
-              pointBackgroundColor:      chart2.color,
-              pointHoverBackgroundColor: chart2.color,
-              pointHoverBorderColor:     chart2.colorHover,
-              data:                      [140, 220.28, 280]
-            })
-          ]
-        }
-      });
+      drawChart(dayValues, yearValues);
 
       // Display the Stock Details and Stock Chart container
       stockDetailContainer.removeClass('hidden');
-      stockChartContainer.removeClass('hidden');
     })
     .fail(function() {
       alert( "error" );
@@ -136,6 +94,90 @@ $(function() {
     .always(function() {
       //alert( "complete" );
     });
+  }
+
+  function setupChart() {
+    // Select DOM containers into variables
+    var stockChartContainer = $('#stock-chart');
+    
+    // Hide the chart container
+    stockChartContainer.addClass('hidden');
+
+    // Chart Settings
+    var chartSettings = {
+      fill: true,
+      lineTension: 0.3,
+      borderCapStyle: 'round',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderWidth: 1,
+      pointHoverRadius: 6,
+      pointHoverBorderWidth: 2,
+      pointRadius: 5,
+      pointHitRadius: 10
+    };
+
+    var chart1 = {
+      color:      'rgba(161,186,203,1)',
+      colorLight: 'rgba(161,186,203,0.4)',
+      colorHover: 'rgba(220,220,220,1)'
+    };
+
+    var chart2 = {
+      color:      'rgba(219,219,219,1)',
+      colorLight: 'rgba(219,219,219,0.4)',
+      colorHover: '#fff'
+    };
+
+    var chart1Settings = {
+      label:                     'Days Range',
+      backgroundColor:           chart1.colorLight,
+      borderColor:               chart1.color,
+      pointBorderColor:          chart1.color,
+      pointBackgroundColor:      chart1.color,
+      pointHoverBackgroundColor: chart1.color,
+      pointHoverBorderColor:     chart1.colorHover,
+      data:                      [0, 0, 0]
+    };
+
+    var chart2Settings = {
+      label:                     'Year Range',
+      backgroundColor:           chart2.colorLight,
+      borderColor:               chart2.color,
+      pointBorderColor:          chart2.color,
+      pointBackgroundColor:      chart2.color,
+      pointHoverBackgroundColor: chart2.color,
+      pointHoverBorderColor:     chart2.colorHover,
+      data:                      [0, 0, 0]
+    };
+
+    // Setup the intial chart
+    var sChart = new Chart(stockChartContainer, {
+      type: 'line',
+      data: {
+        labels: ['Low', 'Last Traded', 'High'],
+        datasets: [
+          $.extend({}, chartSettings, chart1Settings),
+          $.extend({}, chartSettings, chart2Settings)
+        ]
+      }
+    });
+
+    return sChart;
+  }
+
+  function drawChart(dayValues, yearValues) {
+    // Update the chart data
+    stockChart.data.datasets[0].data = dayValues;
+    stockChart.data.datasets[1].data = yearValues;
+    stockChart.update();
+
+    // Select DOM containers into variables
+    var stockChartContainer = $('#stock-chart');
+
+    // Show the chart
+    stockChartContainer.removeClass('hidden');
   }
 
 });

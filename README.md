@@ -1,8 +1,10 @@
 # Stock Watch
 
-TODO:
+TODO and Issues:
 
-1. 
+1. Can't handle unknown stocks.
+1. Accepts blank string as symbol.
+1. Query Loading indicator is missing.
 1. 
 
 Commands:
@@ -15,3 +17,8 @@ Commands:
 1. git commit -m "Initial Commit"
 1. git remote add origin https://github.com/akaustav/stock-watch.git
 1. git push -u origin master
+
+Features:
+
+1. Stock Change Indicator Arrows
+1. Dynamic Graph - clicking on the legend toggles the corresponding line graph
