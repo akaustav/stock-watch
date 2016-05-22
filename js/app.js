@@ -26,7 +26,8 @@ $(function() {
         format: 'json',
         env: 'http://datatables.org/alltables.env',
         q: query
-      }
+      },
+      beforeSend: toggleLoading
     };
 
     // Make the AJAX call
@@ -92,8 +93,24 @@ $(function() {
       alert( "error" );
     })
     .always(function() {
-      //alert( "complete" );
+      toggleLoading();
     });
+  }
+
+  function toggleLoading() {
+    var btnElement = $('#stock-lookup');
+    var searchIndicator = btnElement.find('i.fa-search');
+    var loadingIndicator = btnElement.find('i.fa-spinner');
+
+    searchIndicator.toggleClass('hidden');
+    loadingIndicator.toggleClass('hidden');
+
+    // Toggle Button
+    if (btnElement.prop('disabled')) {
+      btnElement.prop('disabled', false);
+    } else {
+      btnElement.prop('disabled', true);
+    };
   }
 
   function setupChart() {
