@@ -12,6 +12,22 @@ The app which takes in a stock symbol and provides data from the Yahoo Finance A
   * Day's Range of the stock
   * Year Range of the stock
 
+
+## How to Use:
+
+1. Open the index.html file in a browser.
+1. On the text box, input one stock symbol only. Example of stock symbols are: TSLA, IBM, AAPL, MSFT, GOOG, etc.
+1. Click the "Lookup Stock" button to get details of the stock for that symbol.
+For instance, for AAPL, the CSV will contain data for stocks of Apple Inc as described on the following page at:
+http://finance.yahoo.com/q?s=AAPL
+
+Note: The summary data is being generated from the JSON response at Yahoo Finance API end point at this URL:
+http://query.yahooapis.com/v1/public/yql
+
+For instance, for the symbol - IBM, I am using the JSON response at the following URL to create the CSV file:
+http://query.yahooapis.com/v1/public/yql?env=http:%2F%2Fdatatables.org%2Falltables.env&format=json&q=select+*+from+yahoo.finance.quotes+where+symbol+in+(%22IBM%22)
+
+
 ## Git Commands:
 
 1. Create a repository on GitHub.
@@ -38,3 +54,4 @@ The app which takes in a stock symbol and provides data from the Yahoo Finance A
 
 - [ ] Can't handle unknown stocks.
 - [ ] Accepts blank string as symbol.
+- [ ] Implement the watch list for marking stocks as favourites.
